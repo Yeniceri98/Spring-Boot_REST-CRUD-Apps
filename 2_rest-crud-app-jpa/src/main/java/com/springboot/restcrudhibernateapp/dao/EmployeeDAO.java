@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface EmployeeDAO {
 
-    public List<Employee> findAll();        // NOT: public eklemeye gerek yoktur. Alttakilerde koymadık   --->  https://stackoverflow.com/questions/17011374/are-public-and-public-final-redundant-for-interface-fields
+    List<Employee> findAll();
 
     Employee findById(int theId);
 

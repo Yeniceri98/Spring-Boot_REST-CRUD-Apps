@@ -3,8 +3,8 @@ package com.springboot.restcrudhibernateapp.dao;
 import com.springboot.restcrudhibernateapp.entity.Employee;
 
 import jakarta.persistence.EntityManager;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
+
+import jakarta.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -26,13 +26,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public List<Employee> findAll() {
 
-        // Get the current hibernate session
-        Session currentSession = entityManager.unwrap(Session.class);
+        // Create the query
+        Query theQuery = entityManager.createQuery("FROM Employee");
 
-        // Create a query
-        Query<Employee> theQuery = currentSession.createQuery("FROM Employee", Employee.class);     // Using natice Hibernate API
-
-        // Execute query and get result list
+        // Execute the query and get the result list
         List<Employee> employees = theQuery.getResultList();
 
         // Return the results
@@ -41,31 +38,34 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     public Employee findById(int theId) {
-        Session currentSession = entityManager.unwrap(Session.class);
 
         // Get the employee
-        Employee theEmployee = currentSession.get(Employee.class, theId);
+        Employee theEmployee = entityManager.find(Employee.class, theId);
 
+        // Return the employee
         return theEmployee;
     }
 
     @Override
     public void save(Employee theEmployee) {
-        Session currentSession = entityManager.unwrap(Session.class);
 
-        // Save the employee
-        currentSession.merge(theEmployee);      // NOT: saveOrUpdate() metodu deprecate olmuş. Onun yerine merge() ve persist() metodlarının kullanılması öneriliyor. merge() yapınca add ve update user düzgün çalıştı
+        // Save or Update the employee
+        Employee dbEmployee = entityManager.merge(theEmployee);
+
+        // Update with id from db to be able to generated id for save/insert
+        theEmployee.setId(dbEmployee.getId());
     }
 
     @Override
     public void deleteById(int theId) {
-        Session currentSession = entityManager.unwrap(Session.class);
 
-        // Get the employee
-        Employee theEmployee = currentSession.get(Employee.class, theId);
+        // Delete with primary key
+        Query theQuery = entityManager.createQuery("DELETE FROM Employee WHERE id=:employeeId");
 
-        // Delete the employee
-        currentSession.remove(theEmployee);       // NOT: delete() metodu deprecate olmuş. Onun yerine remove() kullabılabilir
+        theQuery.setParameter("employeeId", theId);
+
+        theQuery.executeUpdate();
+
     }
 }
 
