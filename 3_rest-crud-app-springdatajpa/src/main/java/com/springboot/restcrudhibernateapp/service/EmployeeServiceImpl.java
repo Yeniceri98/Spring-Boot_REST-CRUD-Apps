@@ -36,7 +36,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (result.isPresent()) {
             theEmployee = result.get();
         } else {
-            throw new RuntimeException("Couldn't find employee with the id of " + theId);
+            throw new RuntimeException("Couldn't find the employee with the id of " + theId);
         }
 
         return theEmployee;
@@ -54,9 +54,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 }
 
 /*
-    Application Architecture:
-    Employee REST Controller  <----->  Employee Service  <----->  Employee DAO - Hibernate  <----->  Database
-
-    @Transactional anotasyonunu DAO'dan alıp burada tanımladık. Best practice olarak Service layer'ında transaction'ın açılıp kapanması önerilir. Her metod için eklenmelidir
-    Metodlarda DAO'ya yönlendirme yapıyoruz
+    JpaRepository built-in methods:
+    https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html
 */
