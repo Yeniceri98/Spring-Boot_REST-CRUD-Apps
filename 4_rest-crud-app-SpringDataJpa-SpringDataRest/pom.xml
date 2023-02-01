@@ -43,7 +43,7 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Spring Data REST -->
+		<!-- Spring Data REST Support -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>
