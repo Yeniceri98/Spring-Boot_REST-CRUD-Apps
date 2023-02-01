@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.springboot</groupId>
-	<artifactId>3_rest-crud-app-springdatajpa</artifactId>
+	<artifactId>3_rest-crud-app-SpringDataJpa</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>3_rest-crud-app-springdatajpa</name>
+	<name>3_rest-crud-app-SpringDataJpa</name>
 	<description>Spring Boot_REST-CRUD-App-SpringDataJPA</description>
 	<properties>
 		<java.version>17</java.version>
